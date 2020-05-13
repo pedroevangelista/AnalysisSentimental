@@ -1,0 +1,18 @@
+﻿@page "/analysis"
+
+<h1>Sentiment analysis</h1>
+<p>Tell me how you feel</p>
+
+<p><textarea @oninput="UpdateScore" cols="80"></textarea></p>
+
+<AnalysisSentimentScale Value=@happiness />
+
+@functions {
+    float happiness = 50;
+
+    public void UpdateScore(ChangeEventArgs evt)
+    {
+        var text = (string)evt.Value;
+        happiness = SentimentAnalysis.Service.SentimentAnalysis.GetPrediction(text).Percentage;
+    }
+}
